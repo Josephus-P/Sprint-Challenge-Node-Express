@@ -94,4 +94,14 @@ server.delete('/api/actions/:id', (req, res) => {
         .catch(err => res.status(500).json(err));
 });
 
+server.get('/api/projects/:id/actions', (req, res) => {
+    const { id } = req.params;
+
+    projectDB.getProjectActions(id).then(response => {
+        res.status(200).json(response);
+    }).catch(err => {
+        console.error('Error', err);
+        res.status(500).json({message: "Error retrieving project actions."});
+    });
+});
 server.listen(9000, () => console.log('\n== API on port 9k ==\n'));
